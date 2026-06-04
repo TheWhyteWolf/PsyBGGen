@@ -43,10 +43,10 @@ python PsyGenADV.py [options]
 | `-o, --output` | `./backgrounds` | Output directory (created if absent) |
 | `-p, --pattern` | random | Force a specific base pattern |
 | `-d, --distortion` | random | Force a specific distortion |
-| `--zoom` | `1.0` | Scale pattern feature density only |
-| `--zoomall` | — | Scale both pattern and distortion features |
+| `--pzoom`, `--zoom` | `1.0` | Zoom factor for pattern features (`--zoom` is a legacy alias) |
+| `--dzoom` | `1.0` | Zoom factor for distortion features |
 
-`--zoom` and `--zoomall` are mutually exclusive.
+`--pzoom` and `--dzoom` are independent and can be combined freely.
 
 ### Examples
 
@@ -68,10 +68,10 @@ Increase pattern density (finer features):
 python PsyGenADV.py -n 10 --zoom 2.5
 ```
 
-Scale everything up for coarser, bolder results:
+Coarsen the pattern but keep distortion subtle, or scale each independently:
 
 ```bash
-python PsyGenADV.py -n 10 --zoomall 0.5
+python PsyGenADV.py -n 10 --pzoom 0.5 --dzoom 3.0
 ```
 
 ---

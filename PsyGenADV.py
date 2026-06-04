@@ -340,18 +340,20 @@ if __name__ == "__main__":
     parser.add_argument("-p", "--pattern",    choices=list(PATTERNS.keys()),    help="Force a specific pattern")
     parser.add_argument("-d", "--distortion", choices=list(DISTORTIONS.keys()), help="Force a specific distortion")
 
-    zooms = parser.add_mutually_exclusive_group()
-    zooms.add_argument("--zoom",    type=float, help="Scale pattern features only")
-    zooms.add_argument("--zoomall", type=float, help="Scale both pattern and distortion features")
+    parser.add_argument("--pzoom", "--zoom", type=float, default=1.0,
+                        help="Zoom factor for pattern features (default: 1.0). --zoom is a legacy alias.")
+    parser.add_argument("--dzoom",           type=float, default=1.0,
+                        help="Zoom factor for distortion features (default: 1.0)")
 
     args = parser.parse_args()
 
-    p_zoom = args.zoomall or args.zoom or 1.0
-    d_zoom = args.zoomall or 1.0
+    p_zoom = args.pzoom
+    d_zoom = args.dzoom
 
     print(f"\nAvailable patterns:    {', '.join(PATTERNS.keys())}")
     print(f"Available distortions: {', '.join(DISTORTIONS.keys())}")
-    print(f"\nGenerating {args.count} images ({args.size}x{args.size}) -> {args.output} ...\n")
+    print(f"\nGenerating {args.count} images ({args.size}x{args.size}) -> {args.output} ...")
+    print(f"Pattern zoom: {p_zoom}x   Distortion zoom: {d_zoom}x\n")
 
     generate_batch(
         count=args.count, size=args.size, out_dir=args.output,
